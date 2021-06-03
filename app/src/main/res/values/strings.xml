@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Stadium</string>
+    <string name="save">Save</string>
+    <string name="description">Description</string>
+    <string name="add_area">Add area</string>
+    <string name="name">Name</string>
+    <string name="address">Adress</string>
+    <string name="tel">Phone</string>
+</resources>

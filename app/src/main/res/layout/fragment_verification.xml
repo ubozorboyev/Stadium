@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/ic_back_white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/black" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/segoe_ui"
+        android:gravity="center"
+        android:text="Enter your code from SMS"
+        android:textColor="@color/black"
+        android:textSize="@dimen/title_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/backButton"
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
+
+
+    <com.raycoarana.codeinputview.CodeInputView
+        android:id="@+id/codeInputView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:code_text_color="@color/black"
+        app:error_color="#77ce9d"
+        app:input_type="numeric"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".3"
+        app:length_of_code="6"
+        app:underline_color="@color/text_color"
+        app:underline_selected_color="@color/black" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="60dp"
+        android:fontFamily="@font/segoe_ui"
+        android:gravity="center"
+        android:text="The confirmation code was send to the number +998(90)-123-45-67"
+        app:layout_constraintBottom_toTopOf="@id/codeInputView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tryAgainText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/segoe_ui"
+        android:gravity="center"
+        android:text="If you haven't received your access code within 120 seconds, \nwe can"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/codeInputView" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:autoLink="none"
+        android:fontFamily="@font/segoe_ui"
+        android:gravity="center"
+        android:linksClickable="true"
+        android:text="Send it again"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/tryAgainText" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

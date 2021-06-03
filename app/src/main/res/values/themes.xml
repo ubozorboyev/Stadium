@@ -1,0 +1,34 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Stadium" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="TextStyle" parent="Widget.AppCompat.TextView">
+        <item name="autoSizeMaxTextSize">@dimen/max_text_size</item>
+        <item name="autoSizeMinTextSize">@dimen/min_text_size</item>
+        <item name="autoSizeTextType">uniform</item>
+        <item name="android:textColor">@color/title_text_color</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+    </style>
+
+
+    <style name="CalendarTextStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">@font/segoe_ui</item>
+        <item name="android:textSize">12sp</item>
+
+    </style>
+
+
+</resources>
