@@ -1,4 +1,4 @@
-package ubr.persanal.stadium.ui.base
+package ubr.personal.stadium.ui.base
 
 import androidx.fragment.app.Fragment
 

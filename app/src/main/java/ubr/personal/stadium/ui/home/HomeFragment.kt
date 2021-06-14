@@ -1,11 +1,11 @@
-package ubr.persanal.stadium.ui.home
+package ubr.personal.stadium.ui.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ubr.persanal.stadium.databinding.FragmentHomeBinding
-import ubr.persanal.stadium.ui.base.BaseFragment
+import ubr.personal.stadium.databinding.FragmentHomeBinding
+import ubr.personal.stadium.ui.base.BaseFragment
 
 class HomeFragment : BaseFragment() {
 
@@ -25,9 +25,5 @@ class HomeFragment : BaseFragment() {
 
 
     }
-
-
-
-
 
 }

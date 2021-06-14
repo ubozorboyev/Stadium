@@ -8,26 +8,26 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ubr.persanal.stadium.ui.home.HomeFragment"
+        android:name="ubr.personal.stadium.ui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/mapsFragment"
-        android:name="ubr.persanal.stadium.ui.map.MapsFragment"
+        android:name="ubr.personal.stadium.ui.map.MapsFragment"
         android:label="fragment_maps"
         tools:layout="@layout/fragment_maps" />
 
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="ubr.persanal.stadium.ui.favorite.FavoriteFragment"
+        android:name="ubr.personal.stadium.ui.favorite.FavoriteFragment"
         android:label="FavoriteFragment"
         tools:layout="@layout/fragment_favorite" />
 
     <fragment
         android:id="@+id/fragmentProfile"
         tools:layout="@layout/fragment_profile"
-        android:name="ubr.persanal.stadium.ui.profile.FragmentProfile"
+        android:name="ubr.personal.stadium.ui.profile.FragmentProfile"
         android:label="FragmentProfile" />
 
 

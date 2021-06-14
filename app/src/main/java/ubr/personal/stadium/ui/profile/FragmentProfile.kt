@@ -1,11 +1,11 @@
-package ubr.persanal.stadium.ui.profile
+package ubr.personal.stadium.ui.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ubr.persanal.stadium.databinding.FragmentProfileBinding
-import ubr.persanal.stadium.ui.base.BaseFragment
+import ubr.personal.stadium.databinding.FragmentProfileBinding
+import ubr.personal.stadium.ui.base.BaseFragment
 
 class FragmentProfile : BaseFragment() {
 
@@ -20,5 +20,7 @@ class FragmentProfile : BaseFragment() {
         binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
+
+
 
 }

@@ -1,4 +1,4 @@
-package ubr.persanal.stadium
+package ubr.personal.stadium
 
 import org.junit.Test
 
