@@ -1,10 +1,11 @@
-package ubr.persanal.stadium
+package ubr.personal.stadium.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
-import ubr.persanal.stadium.databinding.ActivityMainBinding
+import ubr.personal.stadium.R
+import ubr.personal.stadium.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

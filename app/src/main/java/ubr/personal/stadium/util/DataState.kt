@@ -1,4 +1,4 @@
-package ubr.persanal.stadium.util
+package ubr.personal.stadium.util
 
 sealed class DataState<out T> {
 

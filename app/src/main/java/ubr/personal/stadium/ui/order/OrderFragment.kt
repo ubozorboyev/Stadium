@@ -1,11 +1,11 @@
-package ubr.persanal.stadium.ui.order
+package ubr.personal.stadium.ui.order
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ubr.persanal.stadium.databinding.FragmentOrderBinding
-import ubr.persanal.stadium.ui.base.BaseFragment
+import ubr.personal.stadium.databinding.FragmentOrderBinding
+import ubr.personal.stadium.ui.base.BaseFragment
 
 class OrderFragment : BaseFragment() {
 

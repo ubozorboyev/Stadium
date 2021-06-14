@@ -1,6 +1,4 @@
-package ubr.persanal.stadium.ui.map
-
-import androidx.fragment.app.Fragment
+package ubr.personal.stadium.ui.map
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,9 +8,9 @@ import com.google.android.gms.maps.*
 
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import ubr.persanal.stadium.R
-import ubr.persanal.stadium.databinding.FragmentMapsBinding
-import ubr.persanal.stadium.ui.base.BaseFragment
+import ubr.personal.stadium.R
+import ubr.personal.stadium.databinding.FragmentMapsBinding
+import ubr.personal.stadium.ui.base.BaseFragment
 
 class MapsFragment : BaseFragment() {
 

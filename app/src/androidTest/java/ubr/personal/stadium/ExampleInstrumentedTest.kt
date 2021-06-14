@@ -1,4 +1,4 @@
-package ubr.persanal.stadium
+package ubr.personal.stadium
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
