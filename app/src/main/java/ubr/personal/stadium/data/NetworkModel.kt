@@ -26,19 +26,16 @@ object NetworkModel {
     private const val TAG = "NetworkModel"
 
     @Provides
-    fun getOkHttp(interceptor: Interceptor, @ApplicationContext context: Context): OkHttpClient {
+    fun getOkHttp(): OkHttpClient {
 
         val logging = HttpLoggingInterceptor()
 
 
         logging.level = HttpLoggingInterceptor.Level.BODY
 
-        val cache = Cache(context.cacheDir, CACHE_SIZE)
 
         return OkHttpClient.Builder()
-            .cache(cache)
             .addInterceptor(logging)
-            .addInterceptor(interceptor)
             .readTimeout(60, TimeUnit.SECONDS)
             .writeTimeout(60, TimeUnit.SECONDS)
             .connectTimeout(120, TimeUnit.SECONDS)

@@ -20,6 +20,7 @@
         android:orientation="horizontal">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/stadiumName"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
 
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/fromAway"
             android:layout_width="wrap_content"
             android:textColor="@color/white"
             android:layout_height="wrap_content"
