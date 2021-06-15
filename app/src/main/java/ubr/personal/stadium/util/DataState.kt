@@ -4,6 +4,6 @@ sealed class DataState<out T> {
 
     object Loading : DataState<Nothing>()
     class ResponseData<T>(val data: T?) : DataState<T>()
-    class Error(message: String?) : DataState<Nothing>()
+    class Error(val message: String?) : DataState<Nothing>()
 
 }

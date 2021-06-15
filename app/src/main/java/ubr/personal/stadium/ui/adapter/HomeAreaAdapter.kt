@@ -3,10 +3,15 @@ package ubr.personal.stadium.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ubr.personal.stadium.data.model.StadiumData
 import ubr.personal.stadium.databinding.ItemAreaBinding
+import ubr.personal.stadium.ui.base.BaseInterface
+import ubr.personal.stadium.util.Common
+import java.lang.Exception
 
-class HomeAreaAdapter : RecyclerView.Adapter<HomeAreaAdapter.ViewHolderHome>() {
+class HomeAreaAdapter(private val baseInterface: BaseInterface) :
+    RecyclerView.Adapter<HomeAreaAdapter.ViewHolderHome>() {
 
     private val stadiumList = arrayListOf<StadiumData>()
 
@@ -19,6 +24,16 @@ class HomeAreaAdapter : RecyclerView.Adapter<HomeAreaAdapter.ViewHolderHome>() {
             itemBinding.apply {
                 stadiumName.text = data.name
                 fromAway.text = data.address
+                root.setOnClickListener {
+                    baseInterface.stationItemSelected(data.id)
+                }
+            }
+            try {
+                Glide.with(itemView).load(Common.IMAGE_URL + data.files[0].files)
+                    .into(itemBinding.stadiumImage)
+
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }
@@ -42,10 +57,13 @@ class HomeAreaAdapter : RecyclerView.Adapter<HomeAreaAdapter.ViewHolderHome>() {
     }
 
 
-    fun setData(ls: List<StadiumData>) {
-        stadiumList.clear()
-        stadiumList.addAll(ls)
-        notifyDataSetChanged()
+    fun setData(ls: List<StadiumData>?) {
+
+        ls?.let {
+            stadiumList.clear()
+            stadiumList.addAll(it)
+            notifyDataSetChanged()
+        }
     }
 
 

@@ -22,35 +22,20 @@
 
         </androidx.viewpager2.widget.ViewPager2>
 
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/area_item_image" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="220dp"
-            android:background="#80000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dotsIndicator"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_marginBottom="@dimen/margin_top"
+            app:dotsSize="6dp" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_border"
-                android:layout_marginTop="@dimen/margin_border"
-                android:background="?android:selectableItemBackground"
-                android:padding="@dimen/margin_border"
-                android:src="@drawable/ic_back_white"
-                android:tint="@color/white"
-                android:visibility="visible" />
 
-        </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
 
     </FrameLayout>
 
@@ -80,7 +65,8 @@
         android:id="@+id/buttonCheckout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="10dp"
         android:elevation="@dimen/margin_border"
         android:fontFamily="@font/segoe_ui"
         android:letterSpacing="0.02"

@@ -16,18 +16,35 @@ class HomeRepository @Inject constructor(private val apiServer: ApiServer) {
         try {
             emit(DataState.Loading)
 
-            val response = apiServer.getStadiumByCategory("Bearer ${Common.token}", categoryId)
+            val response = apiServer.getStadiumByCategory(categoryId)
 
             if (response.isSuccessful)
                 emit(DataState.ResponseData(response.body()?.data))
             else emit(DataState.Error(response.errorBody()?.string()))
-
 
         } catch (e: Exception) {
             emit(DataState.Error(e.message))
             e.printStackTrace()
         }
 
+    }
+
+
+    suspend fun getAllCategory() = flow {
+
+        try {
+
+            emit(DataState.Loading)
+            val response = apiServer.getCategory()
+
+            if (response.isSuccessful)
+                emit(DataState.ResponseData(response.body()?.data))
+            else emit(DataState.Error(response.errorBody()?.string()))
+
+        } catch (e: Exception) {
+            emit(DataState.Error(e.message))
+            e.printStackTrace()
+        }
 
     }
 

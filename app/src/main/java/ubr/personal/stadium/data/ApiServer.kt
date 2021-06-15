@@ -1,17 +1,14 @@
 package ubr.personal.stadium.data
 
+import android.app.Notification
 import retrofit2.Response
 import retrofit2.http.*
-import ubr.personal.stadium.data.model.CreateStadiumModel
-import ubr.personal.stadium.data.model.GetStadiumResponse
-import ubr.personal.stadium.data.model.SignInModelResponse
-import ubr.personal.stadium.data.model.SignInRequest
+import ubr.personal.stadium.data.model.*
 
 interface ApiServer {
 
-    @GET("admin/stadion?include=category")
+    @GET("admin/stadion?include=files")
     suspend fun getStadiumByCategory(
-        @Header("Authorization") token: String,
         @Query("filter[category_id]") categoryId: Int
     ): Response<GetStadiumResponse>
 
@@ -31,6 +28,15 @@ interface ApiServer {
     suspend fun orderStation(
 
     )
+
+    @GET("admin/category")
+    suspend fun getCategory(): Response<CategoryResponse>
+
+    @GET("admin/stadion/{id}?include=files")
+    suspend fun getStadiumById(
+//        @Header("Authorization") token: String,
+        @Path("id") id: Int
+    ): Response<StadiumData>
 
 
 }

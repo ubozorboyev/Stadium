@@ -1,6 +1,7 @@
 package ubr.personal.stadium.ui
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.ui.setupWithNavController
@@ -24,6 +25,23 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigation.setupWithNavController(navController)
 
+
+        navController.addOnDestinationChangedListener { controller, destination, arguments ->
+
+            when (destination.id) {
+                R.id.homeFragment, R.id.favoriteFragment, R.id.mapsFragment, R.id.fragmentProfile -> showNavigationBar()
+                else -> hideNavigationBar()
+            }
+        }
+
+    }
+
+    private fun hideNavigationBar() {
+        binding.bottomNavigation.visibility = View.GONE
+    }
+
+    private fun showNavigationBar() {
+        binding.bottomNavigation.visibility = View.VISIBLE
     }
 
 }

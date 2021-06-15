@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import ubr.personal.stadium.data.model.CategoryData
 import ubr.personal.stadium.data.model.StadiumData
 import ubr.personal.stadium.data.repository.HomeRepository
 import ubr.personal.stadium.util.DataState
@@ -20,9 +21,12 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
     private val _stadiumList = MutableLiveData<DataState<List<StadiumData>>>()
     val stadiumList: LiveData<DataState<List<StadiumData>>> get() = _stadiumList
 
+    private val _categoryList = MutableLiveData<DataState<List<CategoryData>>>()
+    val categoryList :LiveData<DataState<List<CategoryData>>> = _categoryList
 
     init {
         getStadiumList(1)
+        getCategoryList()
     }
 
 
@@ -36,6 +40,14 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
         }
     }
 
+
+    private fun getCategoryList(){
+        viewModelScope.launch {
+            repository.getAllCategory().collect {
+                _categoryList.postValue(it)
+            }
+        }
+    }
 
 
 

@@ -29,7 +29,18 @@ data class StadiumData(
     val name: String,
     val price: Any,
     val status: Int,
+    val files: List<ImageData>,
     val updated_at: Any
+)
+
+
+data class ImageData(
+    val created_at: Int,
+    val files: String,
+    val id: Int,
+    val name: Int,
+    val stadion_id: Int,
+    val updated_at: Int
 )
 
 data class First(

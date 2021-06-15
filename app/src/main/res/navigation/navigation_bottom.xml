@@ -30,5 +30,11 @@
         android:name="ubr.personal.stadium.ui.profile.FragmentProfile"
         android:label="FragmentProfile" />
 
+    <fragment
+        android:id="@+id/orderFragment"
+        tools:layout="@layout/fragment_order"
+        android:name="ubr.personal.stadium.ui.order.OrderFragment"
+        android:label="OrderFragment" />
+
 
 </navigation>
