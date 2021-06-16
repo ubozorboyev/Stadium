@@ -24,7 +24,7 @@ class EditFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        binding.saveButton
+//        binding.saveButton
 
     }
 
