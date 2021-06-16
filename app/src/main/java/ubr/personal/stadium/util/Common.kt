@@ -7,6 +7,7 @@ object Common {
     const val IMAGE_URL = "http://ulugbeyr.beget.tech/"
 
     var token = "ICKUR7Yv1QVurMqT1aG9amQDv-0iLesQ"
+    var userId: Int = 0
 
 
 }

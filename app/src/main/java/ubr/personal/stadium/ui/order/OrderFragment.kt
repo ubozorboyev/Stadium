@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
+import ubr.personal.stadium.R
+import ubr.personal.stadium.data.model.FavoriteModel
 import ubr.personal.stadium.databinding.FragmentOrderBinding
 import ubr.personal.stadium.ui.adapter.OrderViewPagerAdapter
 import ubr.personal.stadium.ui.base.BaseFragment
@@ -21,6 +23,14 @@ class OrderFragment : BaseFragment() {
 
     private val viewModel by viewModels<OrderViewModel>()
     private val pagerAdapter = OrderViewPagerAdapter()
+
+    private var isFavorite = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+        super.onCreate(savedInstanceState)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,8 +47,9 @@ class OrderFragment : BaseFragment() {
         observeData()
         binding.dotsIndicator.setViewPager2(binding.viewPager)
 
-        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
-
+        binding.favoriteButton.setOnClickListener {
+            viewModel.postFavoriteData()
+        }
     }
 
     private fun observeData() {
@@ -56,6 +67,27 @@ class OrderFragment : BaseFragment() {
                 is DataState.ResponseData -> {
                     binding.progressBar.visibility = View.GONE
                     pagerAdapter.setData(it.data?.files)
+                }
+            }
+        }
+
+        viewModel.postFavorite.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Loading -> {
+                }
+
+                is DataState.Error -> {
+                    it.message?.toast(requireContext())
+                }
+
+                is DataState.ResponseData -> {
+                    isFavorite = !isFavorite
+
+                    binding.favoriteButton.setImageResource(
+                        if (isFavorite) R.drawable.ic_favorite_paint
+                        else R.drawable.ic_favorite
+                    )
+
                 }
             }
         }

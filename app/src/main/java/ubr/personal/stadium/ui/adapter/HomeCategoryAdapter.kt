@@ -23,26 +23,26 @@ class HomeCategoryAdapter(private val baseInterface: BaseInterface) :
 
         fun bind(data: CategoryData) {
 
-            itemBinding.root.background = null
-            itemBinding.root.isClickable = true
-            itemBinding.root.backgroundTintList = generateColorStateList()
+            itemBinding.imageCard.background = null
+            itemBinding.imageCard.isClickable = true
+            itemBinding.imageCard.backgroundTintList = generateColorStateList()
             itemBinding.categoryName.text = data.name
             Glide.with(itemView).load(Common.IMAGE_URL + data.icon)
                 .placeholder(R.drawable.ic_sports_baseball)
                 .error(R.drawable.ic_sports_baseball)
                 .into(itemBinding.categoryImage)
 
-            itemBinding.root.setOnClickListener {
+            itemBinding.imageCard.setOnClickListener {
                 if (selectedPosition != adapterPosition) {
                     notifyItemChanged(selectedPosition)
-                    itemBinding.root.setBackgroundResource(R.drawable.bg_category)
+                    itemBinding.imageCard.setBackgroundResource(R.drawable.bg_category)
                     selectedPosition = adapterPosition
                     baseInterface.categorySelected(data.id)
                 }
             }
 
             if (selectedPosition == 0 && adapterPosition == 0)
-                itemBinding.root.setBackgroundResource(R.drawable.bg_category)
+                itemBinding.imageCard.setBackgroundResource(R.drawable.bg_category)
         }
 
     }

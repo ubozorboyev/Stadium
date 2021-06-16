@@ -18,13 +18,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/navigation_bottom" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@drawable/shadow_bottom_navigation_bar"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#D0D0D033"
-        app:itemRippleColor="@color/white"
-        app:labelVisibilityMode="unlabeled"
+        app:labelVisibilityMode="labeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottom_menu" />
 
