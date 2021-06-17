@@ -16,7 +16,6 @@ class HomeCategoryAdapter(private val baseInterface: BaseInterface) :
     RecyclerView.Adapter<HomeCategoryAdapter.ViewHolderCategory>() {
 
     private val categoryList = arrayListOf<CategoryData>()
-    private var selectedPosition = 0
 
     inner class ViewHolderCategory(private val itemBinding: ItemServiceBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
@@ -25,7 +24,6 @@ class HomeCategoryAdapter(private val baseInterface: BaseInterface) :
 
             itemBinding.imageCard.background = null
             itemBinding.imageCard.isClickable = true
-            itemBinding.imageCard.backgroundTintList = generateColorStateList()
             itemBinding.categoryName.text = data.name
             Glide.with(itemView).load(Common.IMAGE_URL + data.icon)
                 .placeholder(R.drawable.ic_sports_baseball)
@@ -33,15 +31,15 @@ class HomeCategoryAdapter(private val baseInterface: BaseInterface) :
                 .into(itemBinding.categoryImage)
 
             itemBinding.imageCard.setOnClickListener {
-                if (selectedPosition != adapterPosition) {
-                    notifyItemChanged(selectedPosition)
+                if (Common.selectedPosition != adapterPosition) {
+                    notifyItemChanged(Common.selectedPosition)
                     itemBinding.imageCard.setBackgroundResource(R.drawable.bg_category)
-                    selectedPosition = adapterPosition
+                    Common.selectedPosition = adapterPosition
                     baseInterface.categorySelected(data.id)
                 }
             }
 
-            if (selectedPosition == 0 && adapterPosition == 0)
+            if (Common.selectedPosition == adapterPosition)
                 itemBinding.imageCard.setBackgroundResource(R.drawable.bg_category)
         }
 

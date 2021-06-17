@@ -12,6 +12,7 @@ import ubr.personal.stadium.data.model.FavoriteModel
 import ubr.personal.stadium.databinding.FragmentOrderBinding
 import ubr.personal.stadium.ui.adapter.OrderViewPagerAdapter
 import ubr.personal.stadium.ui.base.BaseFragment
+import ubr.personal.stadium.util.Common
 import ubr.personal.stadium.util.DataState
 import ubr.personal.stadium.util.toast
 
@@ -48,11 +49,16 @@ class OrderFragment : BaseFragment() {
         binding.dotsIndicator.setViewPager2(binding.viewPager)
 
         binding.favoriteButton.setOnClickListener {
-            viewModel.postFavoriteData()
+
+            if (Common.token.isNotEmpty())
+                viewModel.postFavoriteData()
+            else "You should login this app".toast(requireContext())
+
         }
     }
 
     private fun observeData() {
+
         viewModel.stadiumData.observe(viewLifecycleOwner) {
             when (it) {
                 is DataState.Loading -> {
@@ -66,6 +72,8 @@ class OrderFragment : BaseFragment() {
 
                 is DataState.ResponseData -> {
                     binding.progressBar.visibility = View.GONE
+                    isFavorite = it.data?.favourite == true
+                    changedImage()
                     pagerAdapter.setData(it.data?.files)
                 }
             }
@@ -74,6 +82,7 @@ class OrderFragment : BaseFragment() {
         viewModel.postFavorite.observe(viewLifecycleOwner) {
             when (it) {
                 is DataState.Loading -> {
+
                 }
 
                 is DataState.Error -> {
@@ -82,16 +91,19 @@ class OrderFragment : BaseFragment() {
 
                 is DataState.ResponseData -> {
                     isFavorite = !isFavorite
-
-                    binding.favoriteButton.setImageResource(
-                        if (isFavorite) R.drawable.ic_favorite_paint
-                        else R.drawable.ic_favorite
-                    )
-
+                    changedImage()
                 }
             }
         }
     }
+
+    private fun changedImage() {
+        binding.favoriteButton.setImageResource(
+            if (isFavorite) R.drawable.ic_favorite_paint
+            else R.drawable.ic_favorite
+        )
+    }
+
 
     override fun onDestroy() {
         (requireActivity() as AppCompatActivity).supportActionBar?.show()

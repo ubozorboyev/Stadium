@@ -11,8 +11,11 @@ import ubr.personal.stadium.R
 import ubr.personal.stadium.databinding.FragmentHomeBinding
 import ubr.personal.stadium.ui.adapter.HomeAreaAdapter
 import ubr.personal.stadium.ui.adapter.HomeCategoryAdapter
+import ubr.personal.stadium.ui.adapter.NewsAdapter
+import ubr.personal.stadium.ui.adapter.OrderViewPagerAdapter
 import ubr.personal.stadium.ui.base.BaseFragment
 import ubr.personal.stadium.ui.base.BaseInterface
+import ubr.personal.stadium.util.Common
 import ubr.personal.stadium.util.DataState
 import ubr.personal.stadium.util.toast
 
@@ -25,6 +28,7 @@ class HomeFragment : BaseFragment(), BaseInterface {
 
     private val adapterArea = HomeAreaAdapter(this)
     private val categoryAdapter = HomeCategoryAdapter(this)
+    private val pagerAdapter = NewsAdapter()
 
 
     override fun onCreateView(
@@ -41,6 +45,8 @@ class HomeFragment : BaseFragment(), BaseInterface {
 
         binding.areaRecyclerView.adapter = adapterArea
         binding.categoryRecyclerView.adapter = categoryAdapter
+        binding.viewPager.adapter = pagerAdapter
+        binding.dotsIndicator.setViewPager2(binding.viewPager)
         observeData()
     }
 
@@ -55,6 +61,7 @@ class HomeFragment : BaseFragment(), BaseInterface {
                 }
                 is DataState.ResponseData -> {
                     categoryAdapter.setData(it.data)
+                    binding.categoryRecyclerView.scrollToPosition(Common.selectedPosition)
                 }
             }
         }
@@ -70,6 +77,8 @@ class HomeFragment : BaseFragment(), BaseInterface {
                 }
                 is DataState.ResponseData -> {
                     binding.progressBar.visibility = View.GONE
+                    if (it.data?.isNullOrEmpty() != true)
+                        pagerAdapter.setData(it.data[0].files)
                     adapterArea.setData(it.data)
                 }
             }
@@ -77,6 +86,8 @@ class HomeFragment : BaseFragment(), BaseInterface {
     }
 
     override fun categorySelected(categoryId: Int) {
+        Common.category_id = categoryId
+
         viewModel.getStadiumList(categoryId)
     }
 

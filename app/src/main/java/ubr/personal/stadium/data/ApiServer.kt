@@ -24,10 +24,11 @@ interface ApiServer {
 
     // Order Page
 
-    @GET("admin/stadion/{id}?include=files")
+    @GET("admin/stadion/{id}?include=files,favourite")
     suspend fun getStadiumById(
-        @Path("id") id: Int
-    ): Response<StadiumData>
+        @Path("id") id: Int,
+        @Header("Authorization") token: String,
+        ): Response<StadiumData>
 
 
     @POST("admin/user/order")

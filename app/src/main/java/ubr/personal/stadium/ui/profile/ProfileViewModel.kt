@@ -22,10 +22,10 @@ class ProfileViewModel @Inject constructor(private val repository: ProfileReposi
     ViewModel() {
 
     private val _signInModel = MutableLiveData<DataState<SignInModelResponse>>()
-    private val signInModel: LiveData<DataState<SignInModelResponse>> = _signInModel
+     val signInModel: LiveData<DataState<SignInModelResponse>> = _signInModel
 
     private val _successData = MutableLiveData<DataState<SuccessData>>()
-    private val successData: LiveData<DataState<SuccessData>> = _successData
+     val successData: LiveData<DataState<SuccessData>> = _successData
 
 
     fun userCreate(userCreateData: UserCreateData) {

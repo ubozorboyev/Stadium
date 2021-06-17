@@ -9,6 +9,7 @@ import ubr.personal.stadium.databinding.ItemAreaBinding
 import ubr.personal.stadium.ui.base.BaseInterface
 import ubr.personal.stadium.util.Common
 import java.lang.Exception
+import kotlin.random.Random
 
 class HomeAreaAdapter(private val baseInterface: BaseInterface) :
     RecyclerView.Adapter<HomeAreaAdapter.ViewHolderHome>() {
@@ -23,7 +24,11 @@ class HomeAreaAdapter(private val baseInterface: BaseInterface) :
 
             itemBinding.apply {
                 stadiumName.text = data.name
-                fromAway.text = data.address
+                locationText.text = data.address
+                data.price?.let {
+                    costPerHour.text = "$it so'm per hour"
+                }
+                fromAway.text = "${Random.nextInt(60, 500)} m away"
                 root.setOnClickListener {
                     baseInterface.stationItemSelected(data.id)
                 }

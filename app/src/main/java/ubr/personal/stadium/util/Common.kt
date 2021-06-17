@@ -6,8 +6,12 @@ object Common {
 
     const val IMAGE_URL = "http://ulugbeyr.beget.tech/"
 
-    var token = "ICKUR7Yv1QVurMqT1aG9amQDv-0iLesQ"
+    // "ICKUR7Yv1QVurMqT1aG9amQDv-0iLesQ"
+    var token = ""
     var userId: Int = 0
+
+    var category_id = 1
+    var selectedPosition = 0
 
 
 }

@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import ubr.personal.stadium.data.model.CategoryData
 import ubr.personal.stadium.data.model.StadiumData
 import ubr.personal.stadium.data.repository.HomeRepository
+import ubr.personal.stadium.util.Common
 import ubr.personal.stadium.util.DataState
 import javax.inject.Inject
 
@@ -22,15 +23,15 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
     val stadiumList: LiveData<DataState<List<StadiumData>>> get() = _stadiumList
 
     private val _categoryList = MutableLiveData<DataState<List<CategoryData>>>()
-    val categoryList :LiveData<DataState<List<CategoryData>>> = _categoryList
+    val categoryList: LiveData<DataState<List<CategoryData>>> = _categoryList
 
     init {
-        getStadiumList(1)
+        getStadiumList(Common.category_id)
         getCategoryList()
     }
 
 
-    fun getStadiumList(categoryId:Int){
+    fun getStadiumList(categoryId: Int) {
 
         viewModelScope.launch {
             repository.getAllStation(categoryId).collect {
@@ -41,15 +42,13 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
     }
 
 
-    private fun getCategoryList(){
+    private fun getCategoryList() {
         viewModelScope.launch {
             repository.getAllCategory().collect {
                 _categoryList.postValue(it)
             }
         }
     }
-
-
 
 
 }

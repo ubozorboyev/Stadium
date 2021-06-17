@@ -7,7 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 open class BaseFragment : Fragment() {
 
-    private val preference by lazy {
+    val preference by lazy {
         requireContext().getSharedPreferences(
             "PLAYUZ",
             Context.MODE_PRIVATE
