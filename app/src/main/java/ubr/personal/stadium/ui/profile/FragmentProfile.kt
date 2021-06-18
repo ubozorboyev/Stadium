@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import ubr.personal.stadium.R
 import ubr.personal.stadium.data.model.SuccessData
 import ubr.personal.stadium.databinding.FragmentProfileBinding
 import ubr.personal.stadium.ui.base.BaseFragment
-import ubr.personal.stadium.util.Common
-import ubr.personal.stadium.util.DataState
-import ubr.personal.stadium.util.MaskWatcher
+import ubr.personal.stadium.util.*
+import java.lang.Exception
 
 
 @AndroidEntryPoint
@@ -34,8 +36,11 @@ class FragmentProfile : BaseFragment() {
 
         if (Common.token.isEmpty())
             phoneController()
-        else
+        else {
             binding.profileLayout.visibility = View.VISIBLE
+            binding.smsLayout.visibility = View.GONE
+            binding.phoneLayout.visibility = View.GONE
+        }
 
         profileController()
     }
@@ -49,19 +54,24 @@ class FragmentProfile : BaseFragment() {
             val phone = binding.inputPhone.text.toString()
 
             if (phone.isNotEmpty()) {
+                requireActivity().hideSoftKeyboard()
                 binding.phoneLayout.visibility = View.GONE
                 binding.smsLayout.visibility = View.VISIBLE
+                binding.phoneText.text = "The confirmation code was send to the number +998 $phone"
             }
         }
 
-        binding.codeInputView.addOnCompleteListener {
-            val code = binding.codeInputView.code
+        binding.codeInputView.addTextChangedListener() {
 
-            if (code.isNotEmpty()) {
+            val code = binding.codeInputView.text.toString()
+
+            if (code.length > 3) {
                 binding.smsLayout.visibility = View.GONE
+                requireActivity().hideSoftKeyboard()
+                preference.edit().putString("BEARER_TOKEN", Common.testToken).apply()
+                Common.token = Common.testToken
+
                 binding.profileLayout.visibility = View.VISIBLE
-            } else {
-                binding.codeInputView.error = "sms kodni kiriting"
             }
         }
 
@@ -70,15 +80,30 @@ class FragmentProfile : BaseFragment() {
     private fun profileController() {
 
         binding.exitLayout.setOnClickListener {
-            viewModel.logOut()
+//            viewModel.logOut()
+
+            preference.edit().remove("BEARER_TOKEN").apply()
+            binding.profileLayout.visibility = View.GONE
+            binding.phoneLayout.visibility = View.VISIBLE
+            Common.token = ""
+            binding.inputPhone.setText("")
+            binding.codeInputView.setText("")
+            onDestroy()
         }
 
         viewModel.successData.observe(viewLifecycleOwner) {
-            if (it is DataState.ResponseData<SuccessData>) {
-                preference.edit().remove("BEARER_TOKEN").apply()
-                binding.profileLayout.visibility = View.GONE
-                binding.phoneLayout.visibility = View.VISIBLE
-                Common.token = ""
+
+            when (it) {
+                is DataState.ResponseData<SuccessData> -> {
+                    preference.edit().remove("BEARER_TOKEN").apply()
+                    binding.profileLayout.visibility = View.GONE
+                    binding.phoneLayout.visibility = View.VISIBLE
+                    Common.token = ""
+                    binding.phoneLayout.visibility = View.VISIBLE
+                    binding.profileLayout.visibility = View.GONE
+                    binding.smsLayout.visibility = View.GONE
+                }
+                is DataState.Error -> it.message?.toast(requireContext())
             }
         }
 

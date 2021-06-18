@@ -11,6 +11,7 @@ import ubr.personal.stadium.R
 import ubr.personal.stadium.data.model.FavoriteModel
 import ubr.personal.stadium.databinding.FragmentOrderBinding
 import ubr.personal.stadium.ui.adapter.OrderViewPagerAdapter
+import ubr.personal.stadium.ui.adapter.TimeAdapter
 import ubr.personal.stadium.ui.base.BaseFragment
 import ubr.personal.stadium.util.Common
 import ubr.personal.stadium.util.DataState
@@ -24,8 +25,9 @@ class OrderFragment : BaseFragment() {
 
     private val viewModel by viewModels<OrderViewModel>()
     private val pagerAdapter = OrderViewPagerAdapter()
-
+    private val timeAdapter = TimeAdapter()
     private var isFavorite = false
+    private var personCount = 8
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
@@ -48,13 +50,33 @@ class OrderFragment : BaseFragment() {
         observeData()
         binding.dotsIndicator.setViewPager2(binding.viewPager)
 
-        binding.favoriteButton.setOnClickListener {
+        binding.timeRecyclerView.adapter = timeAdapter
 
+        binding.favoriteButton.setOnClickListener {
             if (Common.token.isNotEmpty())
                 viewModel.postFavoriteData()
             else "You should login this app".toast(requireContext())
 
         }
+
+        binding.inkement.setOnClickListener {
+            binding.personCountText.text = "${++personCount}"
+            animateView(it)
+        }
+        binding.deInkement.setOnClickListener {
+            if (personCount != 0)
+                binding.personCountText.text = "${--personCount}"
+            animateView(it)
+        }
+
+        binding.buttonCheckout.setOnClickListener {
+            if (Common.token.isNotEmpty())
+                "Success".toast(requireContext())
+            else "You should login this app".toast(requireContext())
+
+        }
+
+
     }
 
     private fun observeData() {
@@ -82,7 +104,6 @@ class OrderFragment : BaseFragment() {
         viewModel.postFavorite.observe(viewLifecycleOwner) {
             when (it) {
                 is DataState.Loading -> {
-
                 }
 
                 is DataState.Error -> {
@@ -95,6 +116,11 @@ class OrderFragment : BaseFragment() {
                 }
             }
         }
+    }
+
+    private fun animateView(view: View) {
+        view.alpha = 0f
+        view.animate().alpha(1f).setDuration(200).start()
     }
 
     private fun changedImage() {

@@ -26,8 +26,8 @@ interface ApiServer {
 
     @GET("admin/stadion/{id}?include=files,favourite")
     suspend fun getStadiumById(
-        @Path("id") id: Int,
         @Header("Authorization") token: String,
+        @Path("id") id: Int
         ): Response<StadiumData>
 
 

@@ -19,7 +19,7 @@ class OrderRepository @Inject constructor(private val apiServer: ApiServer) {
 
             val token = if (Common.token.isNotEmpty()) "Bearer ${Common.token}" else ""
 
-            val response = apiServer.getStadiumById(stadiumId, token)
+            val response = apiServer.getStadiumById(token, stadiumId)
 
             if (response.isSuccessful)
                 emit(DataState.ResponseData(response.body()))
@@ -29,7 +29,6 @@ class OrderRepository @Inject constructor(private val apiServer: ApiServer) {
             e.printStackTrace()
             emit(DataState.Error(e.message))
         }
-
     }
 
     suspend fun postFavoriteData(data: FavoriteModel) = flow {
