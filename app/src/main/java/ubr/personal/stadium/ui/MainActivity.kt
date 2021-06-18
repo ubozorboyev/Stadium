@@ -1,5 +1,6 @@
 package ubr.personal.stadium.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +9,7 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ubr.personal.stadium.R
 import ubr.personal.stadium.databinding.ActivityMainBinding
+import ubr.personal.stadium.util.Common
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -33,6 +35,11 @@ class MainActivity : AppCompatActivity() {
                 else -> hideNavigationBar()
             }
         }
+
+        getSharedPreferences("PLAYUZ", Context.MODE_PRIVATE).getString("BEARER_TOKEN", "")?.let {
+            Common.token = it
+        }
+
 
     }
 

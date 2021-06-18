@@ -1,26 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="70dp"
+    android:id="@+id/imageCard"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/margin_top"
+    android:layout_marginHorizontal="@dimen/margin_border"
     android:foreground="?attr/selectableItemBackground"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    app:cardCornerRadius="8dp"
+    app:strokeColor="#63000000"
+    app:strokeWidth="1.5dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/categoryImage"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_gravity="center_horizontal"
-        app:srcCompat="@drawable/ic_sports_baseball" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/categoryName"
-        style="@style/TextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:padding="6dp"
-        android:text="basket ball" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:padding="6dp">
 
-</LinearLayout>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/categoryImage"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/ic_sports_baseball" />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/categoryName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="4dp"
+            android:fontFamily="@font/segoe_ui"
+            android:maxLines="1"
+            android:text="basket ball"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

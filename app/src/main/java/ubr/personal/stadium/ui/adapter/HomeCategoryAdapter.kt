@@ -16,33 +16,31 @@ class HomeCategoryAdapter(private val baseInterface: BaseInterface) :
     RecyclerView.Adapter<HomeCategoryAdapter.ViewHolderCategory>() {
 
     private val categoryList = arrayListOf<CategoryData>()
-    private var selectedPosition = 0
 
     inner class ViewHolderCategory(private val itemBinding: ItemServiceBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(data: CategoryData) {
 
-            itemBinding.root.background = null
-            itemBinding.root.isClickable = true
-            itemBinding.root.backgroundTintList = generateColorStateList()
+            itemBinding.imageCard.background = null
+            itemBinding.imageCard.isClickable = true
             itemBinding.categoryName.text = data.name
             Glide.with(itemView).load(Common.IMAGE_URL + data.icon)
                 .placeholder(R.drawable.ic_sports_baseball)
                 .error(R.drawable.ic_sports_baseball)
                 .into(itemBinding.categoryImage)
 
-            itemBinding.root.setOnClickListener {
-                if (selectedPosition != adapterPosition) {
-                    notifyItemChanged(selectedPosition)
-                    itemBinding.root.setBackgroundResource(R.drawable.bg_category)
-                    selectedPosition = adapterPosition
+            itemBinding.imageCard.setOnClickListener {
+                if (Common.selectedPosition != adapterPosition) {
+                    notifyItemChanged(Common.selectedPosition)
+                    itemBinding.imageCard.setBackgroundResource(R.drawable.bg_category)
+                    Common.selectedPosition = adapterPosition
                     baseInterface.categorySelected(data.id)
                 }
             }
 
-            if (selectedPosition == 0 && adapterPosition == 0)
-                itemBinding.root.setBackgroundResource(R.drawable.bg_category)
+            if (Common.selectedPosition == adapterPosition)
+                itemBinding.imageCard.setBackgroundResource(R.drawable.bg_category)
         }
 
     }

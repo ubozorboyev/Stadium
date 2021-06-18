@@ -24,13 +24,14 @@ data class StadiumData(
     val category_id: Int,
     val created_at: Any,
     val id: Int,
-    val latitude: Any,
-    val longitude: Any,
+    val latitude: Double?,
+    val longitude: Double?,
     val name: String,
-    val price: Any,
+    val price: Int?,
     val status: Int,
     val files: List<ImageData>,
-    val updated_at: Any
+    val updated_at: Any,
+    val favourite: Boolean?
 )
 
 

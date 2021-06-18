@@ -1,52 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardCornerRadius="8dp"
-    android:layout_marginTop="@dimen/margin_top"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginTop="8dp"
+    android:layout_marginHorizontal="8dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="4dp">
 
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/stadiumImage"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/area_item_image"
-        android:minHeight="180dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <LinearLayout
-        android:background="#80000000"
-        android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/stadiumName"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/segoe_ui"
-            android:padding="6dp"
-            android:text="@string/app_name"
-            android:textSize="16sp" />
-
-        <View
-            android:layout_width="0dp"
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/stadiumImage"
+            android:layout_width="140dp"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:minHeight="200dp"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/area_item_image" />
 
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/fromAway"
-            android:layout_width="wrap_content"
-            android:textColor="@color/white"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/segoe_ui"
-            android:padding="6dp"
-            android:text="102 m away"
-            android:textSize="12sp" />
+            android:orientation="vertical"
+            android:paddingStart="@dimen/margin_border">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/stadiumName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui"
+                android:padding="4dp"
+                android:text="name"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/locationText"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:fontFamily="@font/segoe_ui"
+                android:gravity="start"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:letterSpacing="0.02"
+                android:maxLines="1"
+                android:minHeight="0dp"
+                android:text="Toshkent shahar, Olmazor tumani"
+                android:textAllCaps="false"
+                android:textColor="@color/black"
+                android:textSize="13dp"
+                app:icon="@drawable/ic_location"
+                app:iconPadding="6dp"
+                app:iconTint="@color/black"
+                app:rippleColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/costPerHour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui"
+                android:padding="4dp"
+                android:text="15 $ per hour"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/fromAway"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui"
+                android:padding="4dp"
+                android:text="120 m away"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:textStyle="normal" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

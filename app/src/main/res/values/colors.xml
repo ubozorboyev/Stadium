@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#185BBD</color>
+    <color name="purple_200">#5790E3</color>
     <color name="purple_500">#185BBD</color>
     <color name="purple_700">#185BBD</color>
     <color name="teal_200">#FF03DAC5</color>
@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="title_text_color">#434343</color>
 
-    <color name="dots_color">#0068FF</color>
+    <color name="line_color">#FAB3B2B2</color>
 
 </resources>
