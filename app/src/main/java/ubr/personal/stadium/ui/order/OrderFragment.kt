@@ -1,14 +1,16 @@
 package ubr.personal.stadium.ui.order
 
+import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ubr.personal.stadium.R
-import ubr.personal.stadium.data.model.FavoriteModel
 import ubr.personal.stadium.databinding.FragmentOrderBinding
 import ubr.personal.stadium.ui.adapter.OrderViewPagerAdapter
 import ubr.personal.stadium.ui.adapter.TimeAdapter
@@ -16,6 +18,8 @@ import ubr.personal.stadium.ui.base.BaseFragment
 import ubr.personal.stadium.util.Common
 import ubr.personal.stadium.util.DataState
 import ubr.personal.stadium.util.toast
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @AndroidEntryPoint
@@ -28,6 +32,7 @@ class OrderFragment : BaseFragment() {
     private val timeAdapter = TimeAdapter()
     private var isFavorite = false
     private var personCount = 8
+    private val calendar = Calendar.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
@@ -44,6 +49,7 @@ class OrderFragment : BaseFragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         binding.viewPager.adapter = pagerAdapter
@@ -58,6 +64,8 @@ class OrderFragment : BaseFragment() {
             else "You should login this app".toast(requireContext())
 
         }
+
+        viewModel.getFreeTimes(SimpleDateFormat("yyyy-MM-dd").format(calendar.time))
 
         binding.inkement.setOnClickListener {
             binding.personCountText.text = "${++personCount}"
@@ -76,7 +84,21 @@ class OrderFragment : BaseFragment() {
 
         }
 
+        binding.dateText.setOnClickListener {
 
+            val dialog = DatePickerDialog(requireContext())
+            dialog.setOnDateSetListener { datePicker, year, month, day ->
+
+                calendar.set(year, month, day)
+
+                val date = SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
+
+                binding.dateText.text = "Date : $date"
+                viewModel.getFreeTimes(date)
+            }
+            dialog.show()
+
+        }
     }
 
     private fun observeData() {
@@ -95,6 +117,13 @@ class OrderFragment : BaseFragment() {
                 is DataState.ResponseData -> {
                     binding.progressBar.visibility = View.GONE
                     isFavorite = it.data?.favourite == true
+
+                    it.data?.let { data ->
+                        binding.locationText.text = data.address
+                        binding.priceText.text = "${data.price} sum per hour"
+                    }
+
+
                     changedImage()
                     pagerAdapter.setData(it.data?.files)
                 }
@@ -113,6 +142,23 @@ class OrderFragment : BaseFragment() {
                 is DataState.ResponseData -> {
                     isFavorite = !isFavorite
                     changedImage()
+                }
+            }
+        }
+
+        viewModel.stadiumTime.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Loading -> {
+                }
+
+                is DataState.Error -> {
+                    it.message?.toast(requireContext())
+                }
+
+                is DataState.ResponseData -> {
+                    it.data?.let {
+                        timeAdapter.setData(it)
+                    }
                 }
             }
         }

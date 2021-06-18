@@ -5,7 +5,6 @@ import ubr.personal.stadium.data.ApiServer
 import ubr.personal.stadium.data.model.FavoriteModel
 import ubr.personal.stadium.util.Common
 import ubr.personal.stadium.util.DataState
-import java.lang.Exception
 import javax.inject.Inject
 
 class OrderRepository @Inject constructor(private val apiServer: ApiServer) {
@@ -45,6 +44,24 @@ class OrderRepository @Inject constructor(private val apiServer: ApiServer) {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    suspend fun getFreeTime(stadiumId: Int, day: String) = flow {
+
+        try {
+            emit(DataState.Loading)
+
+            val response = apiServer.getFreeTime(stadiumId, day)
+
+            if (response.isSuccessful)
+                emit(DataState.ResponseData(response.body()))
+            else emit(DataState.Error(response.message()))
+
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
     }
 
 }

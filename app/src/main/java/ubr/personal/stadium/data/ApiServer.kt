@@ -1,6 +1,5 @@
 package ubr.personal.stadium.data
 
-import android.app.Notification
 import retrofit2.Response
 import retrofit2.http.*
 import ubr.personal.stadium.data.model.*
@@ -28,13 +27,20 @@ interface ApiServer {
     suspend fun getStadiumById(
         @Header("Authorization") token: String,
         @Path("id") id: Int
-        ): Response<StadiumData>
+    ): Response<StadiumData>
 
 
     @POST("admin/user/order")
     suspend fun orderStation(
-
+        @Header("Authorization") token: String,
+        @Body data: OrderAreaRequest
     )
+
+    @GET("admin/stadion/list")
+    suspend fun getFreeTime(
+        @Query("stadion_id") stadiumId: Int,
+        @Query("day") day: String
+    ): Response<TImeListResponse>
 
     // Favorite Page
 
