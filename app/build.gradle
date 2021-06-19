@@ -88,6 +88,6 @@ dependencies {
 
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
+    implementation("ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.1")
 
 }

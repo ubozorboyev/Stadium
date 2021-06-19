@@ -5,17 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ubr.personal.stadium.data.model.ImageData
+import ubr.personal.stadium.data.model.ImageListData
+import ubr.personal.stadium.data.model.ImageListDataItem
 import ubr.personal.stadium.databinding.ItemNewsBinding
 import ubr.personal.stadium.util.Common
 
 class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
 
-    private val images = arrayListOf<ImageData>()
+    private var images = ImageListData()
 
     inner class ViewHolder(private val itemBinding: ItemNewsBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(imageData: ImageData) {
+        fun bind(imageData: ImageListDataItem) {
             Glide.with(itemView).load(Common.IMAGE_URL + imageData.files)
                 .into(itemBinding.imageView)
         }
@@ -36,10 +38,9 @@ class NewsAdapter : RecyclerView.Adapter<NewsAdapter.ViewHolder>() {
         return images.size
     }
 
-    fun setData(ls: List<ImageData>?) {
+    fun setData(ls: ImageListData?) {
         ls?.let {
-            images.clear()
-            images.addAll(ls)
+            images = it
             notifyDataSetChanged()
         }
 

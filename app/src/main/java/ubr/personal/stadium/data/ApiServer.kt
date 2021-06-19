@@ -21,6 +21,10 @@ interface ApiServer {
         @Body createModel: CreateStadiumModel
     )
 
+
+    @GET("admin/stadion/images")
+    suspend fun getAllImages(): Response<ImageListData>
+
     // Order Page
 
     @GET("admin/stadion/{id}?include=files,favourite")

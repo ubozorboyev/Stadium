@@ -40,13 +40,14 @@
                     android:layout_marginHorizontal="@dimen/margin_border"
                     android:layout_marginTop="@dimen/margin_top" />
 
-                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                <ru.tinkoff.scrollingpagerindicator.ScrollingPagerIndicator
                     android:id="@+id/dotsIndicator"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal|bottom"
                     android:layout_marginBottom="@dimen/margin_top"
-                    app:dotsSize="6dp" />
+                    app:dotsSize="6dp"
+                    app:spi_dotSelectedColor="@color/white" />
 
             </FrameLayout>
 

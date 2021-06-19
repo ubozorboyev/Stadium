@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ubr.personal.stadium.data.model.CategoryData
+import ubr.personal.stadium.data.model.ImageListData
 import ubr.personal.stadium.data.model.StadiumData
 import ubr.personal.stadium.data.repository.HomeRepository
 import ubr.personal.stadium.util.Common
@@ -25,9 +26,14 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
     private val _categoryList = MutableLiveData<DataState<List<CategoryData>>>()
     val categoryList: LiveData<DataState<List<CategoryData>>> = _categoryList
 
+    private val _images = MutableLiveData<ImageListData>()
+    val images: LiveData<ImageListData> = _images
+
+
     init {
         getStadiumList(Common.category_id)
         getCategoryList()
+        getAllImages()
     }
 
 
@@ -49,6 +55,15 @@ class HomeViewModel @Inject constructor(private val repository: HomeRepository) 
             }
         }
     }
+
+     private fun getAllImages()  {
+
+         viewModelScope.launch {
+             _images.postValue(repository.getAllImages())
+
+         }
+    }
+
 
 
 }
