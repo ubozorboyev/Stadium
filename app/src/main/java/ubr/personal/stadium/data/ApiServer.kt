@@ -34,7 +34,7 @@ interface ApiServer {
     suspend fun orderStation(
         @Header("Authorization") token: String,
         @Body data: OrderAreaRequest
-    )
+    ): Response<OrderResponseModel>
 
     @GET("admin/stadion/list")
     suspend fun getFreeTime(

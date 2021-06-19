@@ -5,9 +5,7 @@ import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import ubr.personal.stadium.data.model.FavoriteModel
-import ubr.personal.stadium.data.model.StadiumData
-import ubr.personal.stadium.data.model.TImeListResponse
+import ubr.personal.stadium.data.model.*
 import ubr.personal.stadium.data.repository.OrderRepository
 import ubr.personal.stadium.util.Common
 import ubr.personal.stadium.util.DataState
@@ -29,6 +27,9 @@ class OrderViewModel @Inject constructor(
 
     private val _stadiumTime = MutableLiveData<DataState<TImeListResponse>>()
     val stadiumTime: LiveData<DataState<TImeListResponse>> get() = _stadiumTime
+
+    private val _orderTime = MutableLiveData<DataState<OrderResponseModel>>()
+    val orderTime: LiveData<DataState<OrderResponseModel>> get() = _orderTime
 
     private val stadiumId: Int?
 
@@ -69,6 +70,17 @@ class OrderViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun bronFromToTo(from: String, to: String) {
+
+        viewModelScope.launch {
+
+            repository.bronTime(OrderAreaRequest(Common.userId, stadiumId ?: 0, from, to)).collect {
+                _orderTime.postValue(it)
+            }
+        }
+
     }
 
 }

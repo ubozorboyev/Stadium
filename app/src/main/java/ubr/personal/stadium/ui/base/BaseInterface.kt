@@ -6,4 +6,6 @@ interface BaseInterface {
 
     fun stationItemSelected(stationId:Int){}
 
+    fun bronTime(from:String, to:String){}
+
 }

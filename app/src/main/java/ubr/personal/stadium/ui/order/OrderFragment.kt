@@ -11,10 +11,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import ubr.personal.stadium.R
+import ubr.personal.stadium.data.model.OrderAreaRequest
 import ubr.personal.stadium.databinding.FragmentOrderBinding
 import ubr.personal.stadium.ui.adapter.OrderViewPagerAdapter
 import ubr.personal.stadium.ui.adapter.TimeAdapter
 import ubr.personal.stadium.ui.base.BaseFragment
+import ubr.personal.stadium.ui.base.BaseInterface
 import ubr.personal.stadium.util.Common
 import ubr.personal.stadium.util.DataState
 import ubr.personal.stadium.util.toast
@@ -23,16 +25,18 @@ import java.util.*
 
 
 @AndroidEntryPoint
-class OrderFragment : BaseFragment() {
+class OrderFragment : BaseFragment(), BaseInterface {
 
     private lateinit var binding: FragmentOrderBinding
 
     private val viewModel by viewModels<OrderViewModel>()
     private val pagerAdapter = OrderViewPagerAdapter()
-    private val timeAdapter = TimeAdapter()
+    private val timeAdapter = TimeAdapter(this)
     private var isFavorite = false
     private var personCount = 8
     private val calendar = Calendar.getInstance()
+    private var from = ""
+    private var to: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
@@ -78,15 +82,21 @@ class OrderFragment : BaseFragment() {
         }
 
         binding.buttonCheckout.setOnClickListener {
-            if (Common.token.isNotEmpty())
-                "Success".toast(requireContext())
-            else "You should login this app".toast(requireContext())
+            if (Common.token.isNotEmpty()) {
+                if (from.isNotEmpty() && to.isNotEmpty()) {
+                    val date = SimpleDateFormat("yyyy-MM-dd").format(calendar.time)
+                    viewModel.bronFromToTo("$date $from", "$date $to")
+                }
+            } else "You should login this app".toast(requireContext())
 
         }
 
         binding.dateText.setOnClickListener {
 
             val dialog = DatePickerDialog(requireContext())
+
+            dialog.datePicker.minDate = System.currentTimeMillis() - 1000
+
             dialog.setOnDateSetListener { datePicker, year, month, day ->
 
                 calendar.set(year, month, day)
@@ -99,6 +109,11 @@ class OrderFragment : BaseFragment() {
             dialog.show()
 
         }
+    }
+
+    override fun bronTime(from: String, to: String) {
+        this.from = from
+        this.to = to
     }
 
     private fun observeData() {
@@ -142,6 +157,23 @@ class OrderFragment : BaseFragment() {
                 is DataState.ResponseData -> {
                     isFavorite = !isFavorite
                     changedImage()
+                }
+            }
+        }
+
+        viewModel.orderTime.observe(viewLifecycleOwner) {
+            when (it) {
+                is DataState.Loading -> {
+                    "Please wait".toast(requireContext())
+                }
+
+                is DataState.Error -> {
+                    it.message?.toast(requireContext())
+                }
+
+                is DataState.ResponseData -> {
+                    "Successful".toast(requireContext())
+                    viewModel.getFreeTimes(SimpleDateFormat("yyyy-MM-dd").format(calendar.time))
                 }
             }
         }
